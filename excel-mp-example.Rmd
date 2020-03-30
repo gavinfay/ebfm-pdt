@@ -27,7 +27,7 @@ output:
 ## Develop thinking around stock complex catch advice
 
 ```{r, echo=FALSE}
-knitr::include_graphics("ebfm_mpfig_hart.png")
+knitr::include_graphics("img/ebfm_mpfig_hart.png")
 ```
 
 ---
