@@ -26,7 +26,7 @@ output:
 
 ## Develop thinking around stock complex catch advice
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.retina = 4}
 knitr::include_graphics("img/ebfm_mpfig_hart.png")
 ```
 
