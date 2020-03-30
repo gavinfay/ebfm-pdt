@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>An Excel worked example of FEP catch advice</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Gavin Fay" />
+    <link href="excel-mp-example_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="excel-mp-example_files/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# An Excel worked example of FEP catch advice
+## NEFMC EBFM PDT mtg
+### Gavin Fay
+### 3/31/2020
+
+---
+
+
+# Motivation
+
+* lunch-time exercise  
+* eFEP is long  
+* boil down catch advice procedure  
+* outline steps for a simple example 
+ + one run-through of generating advice
+* 'Stock-complex' idea for catch advice from eFEP
+* comparison to single-species approach
+
+
+---
+
+## Develop thinking around stock complex catch advice
+
+![](ebfm_mpfig_hart.png)&lt;!-- --&gt;
+
+---
+
+.pull-left[
+# What this is
+
+An example that works through steps based on proposed decision points  
+
+To show how one could generate catch advice
+]
+
+--
+
+.pull-right[
+# What this is not
+
+An evaluation of management procedure performance
+]
+
+
+---
+
+# Decision points
+
+1. Limit on total removals from system
+
+2. Divide managed stocks into complexes 
+
+3. Assess status of stock complexes?
+
+3. Assess status of individual stocks?
+
+4. Derive catch advice for complexes
+
+4. Check status of individual stocks
+
+5. Update complex catch advice based on constraints
+
+
+---
+
+# Operating Model
+
+.pull-left[
+4 stocks  
+
+Independent population dynamics  
+(Schaefer production model)  
+
+Linked fishing mortality  
+1 fishery, differing catchabilities  
+]
+
+.pull-right[
+&lt;img src="excel-mp-example_files/figure-html/unnamed-chunk-2-1.png" width="100%" /&gt;
+]
+
+
+--
+
+.footnote[
+## Data generated:
+
+Annual survey index by stock  
+- summed to complex &amp; system level  
+
+Annual catches by stock
+]
+
+---
+
+# Operating Model
+
+.pull-left[
+4 stocks  
+
+Independent population dynamics  
+(Schaefer production model)  
+
+Linked fishing mortality  
+1 fishery, differing catchabilities  
+]
+
+.pull-right[
+&lt;img src="excel-mp-example_files/figure-html/unnamed-chunk-3-1.png" width="100%" /&gt;
+]
+
+.footnote[
+## Data generated:
+
+Annual survey index by stock  
+- summed to complex &amp; system level  
+
+Annual catches by stock
+]
+
+---
+
+# Assessment Models
+
+Regression-based production models
+
+Fit to survey &amp; catch time series
+
+Separate models for:  
+* each stock  
+* each complex  
+* system
+
+--
+
+These assessment models calculate
+* `\(\frac{B_{last}}{B_{MSY}}\)`
+* `\(F_{MSY}\)`
+* `\(MSY\)`
+* `\(OFL_{next} = B_{last} * F_{MSY}\)` 
+
+--
+
+
+We get estimates for these at the stock, complex, &amp; system levels.
+
+---
+
+# Management Procedure
+### single-species version
+
+* &lt;p style="color:grey"&gt;Set system removal limit at system MSY estimate&lt;/p&gt;
+* &lt;p style="color:grey"&gt;Assess status of stock complexes&lt;/p&gt;
+* &lt;p style="color:grey"&gt;Set `F_{use}` to `F_{MSY}` for each complex&lt;/p&gt;
+* __&lt;p&gt;Assess status of individual stocks__&lt;/p&gt;
+* __&lt;p&gt;Apply `\(F_{MSY}\)` to `B` estimates for stocks, calcultate OFL__&lt;/p&gt;
+* &lt;p style="color:grey"&gt;Compare stock survey index to max observed for each stock. Less than 0.25?&lt;/p&gt;
+* &lt;p style="color:grey"&gt;Floor based on avg or min status in complex?&lt;/p&gt;
+* &lt;p style="color:grey"&gt;If floor &lt; 0.25 max, reduce `F_{use}` for complex&lt;/p&gt;
+* &lt;p style="color:grey"&gt;Apply `F_{use}` to `B` estimates for complexes, calcultate OFL&lt;/p&gt;
+* &lt;p style="color:grey"&gt;If sum of OFL over complexes exceeds system limit, reduce complex OFLs accordingly.&lt;/p&gt;
+
+---
+
+# Management Procedure
+### stock complex version
+
+* __&lt;p&gt;Set system removal limit at system MSY estimate__&lt;/p&gt;
+* __&lt;p&gt;Assess status of stock complexes__&lt;/p&gt;
+* __&lt;p&gt;Set `\(F_{use}\)` to `\(F_{MSY}\)` for each complex__&lt;/p&gt;
+* &lt;p style="color:grey"&gt;Assess status of individual stocks&lt;/p&gt;
+* &lt;p style="color:grey"&gt;Apply `F_{MSY}` to `B` estimates for stocks, calcultate OFL&lt;/p&gt;
+* __&lt;p&gt;Compare stock survey index to max observed for each stock. Less than 0.25?__&lt;/p&gt;
+* __&lt;p&gt;Floor based on avg or min status in complex?__&lt;/p&gt;
+* __&lt;p&gt;If floor &lt; 0.25 max, reduce `\(F_{use}\)` for complex__&lt;/p&gt;
+* __&lt;p&gt;Apply `\(F_{use}\)` to `B` estimates for complexes, calcultate OFL__&lt;/p&gt;
+* __&lt;p&gt;If sum of OFL over complexes exceeds system limit, reduce complex OFLs accordingly.__&lt;/p&gt;
+
+---
+
+# switch to Excel
+
+[open msmodel.xlsx](src/msmodel.xlsx)
+
+
+---
+
+&lt;img src="img/ebfm_mp_output.png" height="50%" /&gt;
+
+---
+
+# Is this useful?
+
+--
+
+## What elements are helpful?
+
+--
+
+## What elements are not helpful?
+
+--
+
+## Additional decision points / features?
+
+* better representation of technical interactions
+* modeled stocks given names/characteristics
+
+--
+
+## Stick with Excel or use Shiny?
+
+* user-driven choice over which/what decisions
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"countIncrementalSlides": false,
+"highightLines": true,
+"highlightStyle": "github"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
