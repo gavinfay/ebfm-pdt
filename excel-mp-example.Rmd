@@ -150,7 +150,7 @@ Linked fishing mortality
 ]
 
 .pull-right[
-```{r, echo = FALSE, warning = FALSE, message = FALSE, fig.retina = 3, out.width="100%"}
+```{r, echo = FALSE, warning = FALSE, message = FALSE, fig.retina = 5, out.width="100%"}
 index <- tsdata %>% 
   select(c(1,7:10,19,22,25)) %>% 
   pivot_longer(names_to = "species",
