@@ -1,8 +1,7 @@
 ---
 title: "An Excel worked example of FEP catch advice"
-author: "Gavin Fay"
-subtitle: "NEFMC EBFM PDT mtg"
-date: "3/31/2020"
+author: "Gavin Fay, UMass Dartmouth, [gfay@umassd.edu](gfay@umassd.edu)"
+date: "NEFMC EBFM PDT 2020-03-31"
 output:
   xaringan::moon_reader:
     nature:
@@ -10,6 +9,7 @@ output:
       highightLines: true
       highlightStyle: github
 ---
+
 
 # Motivation
 
@@ -21,6 +21,9 @@ output:
 * 'Stock-complex' idea for catch advice from eFEP
 * comparison to single-species approach
 
+.footnote[
+###Slides at: [https://gavinfay.github.io/ebfm-pdt/excel-mp-example](https://gavinfay.github.io/ebfm-pdt/excel-mp-example)
+]
 
 ---
 
@@ -288,3 +291,8 @@ knitr::include_graphics("img/ebfm_mp_output.png")
 ## Stick with Excel or use Shiny?
 
 * user-driven choice over which/what decisions
+
+
+
+###Slides at: [https://gavinfay.github.io/ebfm-pdt/excel-mp-example](https://gavinfay.github.io/ebfm-pdt/excel-mp-example)
+
