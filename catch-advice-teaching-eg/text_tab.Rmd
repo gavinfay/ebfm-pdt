@@ -1,0 +1,35 @@
+---
+title: "Overview"
+output: html_document
+---
+
+## Overview
+
+This demonstration tool outlines the basic steps used to develop catch advice for the example Fisheries Ecosystem Plan on Georges Bank.  It is a simplified example using simulated species and information to walk through the steps. It is not intended to replicate any specific species or location, and uses a four species model ecosystem to provide an example work through of the steps to specify catch advice under different scenarios with both single-species and ecosystem-based fisheries management.  
+
+A video, with live demo walk through of the app can be found here.  
+
+## App layout
+
+This tab provides a text walk through. The sidebar to the left provides options for the various decision points of the management procedure. The “Outcomes” tab shows the results of applying the chosen procedure to data generated from the modeled four species ecosystem, including results of assessment models and harvest control rules, to derive catch advice for the next year. The (forthcoming) “model options” tab will allow the user to change some of the parameters of the underlying ecosystem operating model (e.g. growth rates, species interactions, time series of fishing effort and relative catchability of each species).  
+
+## Modeled Ecosystem
+
+The underlying ecosystem model is a four species model of fishery dynamics over a 50 year time series (to roughly approximate the time series length of fishery survey data in the Northeast US). The modeled F trajectory is that of increasing fishing mortality over time, with a reduction in the most recent years. The four species have different life histories, and different vulnerability to the fishing gear. The ecosystem  is split into two stock complexes, each containing two species. Observations from this ecosystem model, in the form of a survey index of abundance for each species, and time series of catch for each species, are generated and made available to the catch advice procedure.  
+
+## Catch advice procedure
+
+The “Outcomes” tab allows the user to specify the decision points to develop catch advice for the next year. The catch advice will be updated whenever the user (you) chooses a different option on the left or moves one of the sliders to a different parameter value.  
+
+* The user can decide whether assessments and catch advice will be produced at the single-species level, or at the stock complex level.
+* The user can decide whether or not to impose a ceiling on total catch from the system. If this is chosen, then an additional stock assessment is produced at the system level to obtain a value for this ceiling (here, the estimate of multispecies maximum sustainable yield is used).
+* For each assessment chosen (single sp vs stock complex and possibly a catch ceiling), the procedure fits a biomass dynamics stock assessment model to the survey and catch data to obtain estimates of MSY reference points and the final year’s biomass.
+* These results and further calculations are produced in a table below the time series plots.
+* The user specifies what the target fishing mortality rate to be used to generate the catch advice should be (e.g. 0.75 FMSY), which would be applied to the final year estimates of biomass to obtain the initial catch advice (either for each species or for each stock complex)
+* Next, there is a check to see if F should be reduced depending on if species within complexes are below their biomass floor. The user specifies the threshold to determine the biomass floor, as a percentage of the maximum observed biomass for each stock over the time series. (e.g. if this is set to 0.4, then the floor is set at 40% of the highest data point)
+* Because there is more than one species in each complex, the user can choose how the floor status for each complex is determined. This can be set either using the average of the floor status for each species within the complex, or using the stock with the poorest status in the complex.
+* Once the stock complex biomass floor status is determined, the target fishing mortality is adjusted downward if the complex is deemed to be below the floor, to create a F_use, which is the fishing mortality that will be used to determine the catch advice.
+* The F_use estimates are then applied to the final year estimates of biomass to obtain the catch advice (either for each species or for each stock complex).
+* If a catch ceiling is being used, the sum of the catch advice over species or complexes is compared to the ceiling value. If the catch advice is more than the ceiling then the catch advice is reduced (here, scaled equally across species/complexes) so that the total catch advice does not exceed the ceiling.
+
+Any challenges or feedback, please let [Gavin Fay]("mailto:gfay@umassd.edu") know.  

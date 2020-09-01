@@ -240,6 +240,10 @@ floor_line <- function(point=FALSE) {
   list(if(point)
     geom_hline(aes(yintercept = floor), col = "red"))
 }  
+floor_vline <- function(point=FALSE) {
+  list(if(point)
+    geom_vline(aes(xintercept = floor/bmsy), col = "red"))
+}  
 
 
 surveyplot <- function(assess_results, settings, input) {
@@ -256,6 +260,7 @@ surveyplot <- function(assess_results, settings, input) {
     complex_id <- tibble(isp = 1:input$Nsp,
                        complex = input$complex)
   emdata_plot <- assess_results %>% 
+    ungroup() %>% 
     filter(isp <= input$Nsp) %>% 
     select(isp, data, bmsy, q) %>% 
     unnest(cols = c(data)) %>% 
@@ -288,8 +293,53 @@ surveyplot <- function(assess_results, settings, input) {
           plot.subtitle = element_markdown(lineheight = 1.1)) +
     NULL
 
+  if (settings$showTimeSeries == "kobe plots") {
+  kobe_dat <- assess_results %>% 
+    ungroup() %>% 
+    mutate(bio = map(results, "biomass"),
+           bio = map(bio, ~.[-length(.)]),
+           cat = map(data, "catch"),
+           f = map2(cat,bio,function(x,y) x/y),
+           bbmsy = map(bio, ~(./bmsy)),
+           ffmsy = map(f,~(./fmsy)),
+           obs = map(data, "biomass"),
+           t = map(data, "t"),
+           obs = map(obs, ~(./q/bmsy))) %>% 
+    left_join(filter(floors, type == "biomass")) %>% 
+    select(isp, t, obs, bbmsy, ffmsy, bmsy, floor) %>% 
+    unnest(cols = -c(isp, bmsy, floor)) %>% 
+    I()
+  #kobe_dat
+  
+  p1 <- kobe_dat %>% 
+    filter(isp <= input$Nsp) %>%
+    left_join(complex_id) %>% 
+    ggplot() +
+    aes(x = obs, y = ffmsy) +
+    geom_point() +
+    geom_line(aes(x = bbmsy, y = ffmsy),col="darkolivegreen") +
+    geom_hline(yintercept = 1, lty = 2) +
+    geom_vline(xintercept = 1, lty = 2, col = "blue") +
+    floor_vline(settings$assessType == "stock complex") +
+    #hline_plot(settings$assessType == "single species") +
+    #floor_line(settings$assessType == "stock complex") +
+    facet_wrap(~fct_reorder(factor(isp), complex), scales = "free") +
+    xlim(0,2) +
+    ylim(0,2) +
+    labs(y = "F/FMSY",
+         x = "B/BMSY",
+         #         title = "New plot <b style='color:#009E73'>title</b>", 
+         #         subtitle = "A <b style='color:#D55E00'>subtitle</b>") +
+         title = "Assessment results: species") +
+         #subtitle = "with estimated <b style='color:blue;'>BMSY</b> & <b style='color:red;'>species floors</b>") +
+    theme(plot.title = element_markdown(lineheight = 1.1)) + #,
+          #plot.subtitle = element_markdown(lineheight = 1.1)) +
+    NULL
+  }
+  
   syspp <- max(assess_results$isp)
   emdata_plot <- assess_results %>% 
+    ungroup() %>% 
     filter(isp > input$Nsp, isp < syspp) %>% 
     select(isp, data, bmsy, q) %>% 
     unnest(cols = c(data)) %>% 
@@ -309,6 +359,7 @@ surveyplot <- function(assess_results, settings, input) {
          title = "survey index: complexes") +
     NULL
   emdata_plot <- assess_results %>% 
+    ungroup() %>% 
     filter(isp == syspp) %>% 
     select(isp, data, bmsy, q) %>% 
     unnest(cols = c(data)) %>% 
@@ -555,15 +606,13 @@ report_table <- function(settings) {
 }
 
 
-# settings = list(
-#   #showTimeSeries = input$showTimeSeries,
-#   useCeiling = "Yes",
-#   assessType = "stock complex",
-#   targetF = 0.75,
-#   floorB = 0.25,
-#   floorOption = "avg status")
-# # # do_ts_plot(settings)
-# print(report_table(settings))
-# dimnames(report_table(settings))
-
-
+settings = list(
+  showTimeSeries = "No",
+  useCeiling = "Yes",
+  assessType = "stock complex",
+  targetF = 0.75,
+  floorB = 0.25,
+  floorOption = "avg status")
+# do_ts_plot(settings)
+# # print(report_table(settings))
+# # dimnames(report_table(settings))
